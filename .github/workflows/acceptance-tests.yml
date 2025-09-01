@@ -126,6 +126,10 @@ jobs:
           FILE='inventory.yaml'
         fi
         sed -e 's/password: .*/password: "[redacted]"/' < $FILE || true
+    - name: Fix Puppet GPG Key
+      run: |
+        # Fix the expired Puppet GPG key on the test nodes before installing puppet agent
+        bundle exec bolt command run 'curl -fsSL https://apt.puppetlabs.com/DEB-GPG-KEY-future | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/puppet-future.gpg > /dev/null && echo "deb https://apt.puppetlabs.com noble puppet8" | sudo tee /etc/apt/sources.list.d/puppet.list && sudo apt-get update' --inventoryfile inventory.yaml || true
     - name: Install agent
       run: |
         CI=true bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
