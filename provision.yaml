@@ -16,6 +16,7 @@ linux:
     - "litmusimage/ubuntu:20.04"
     - "litmusimage/ubuntu:22.04"
     - "litmusimage/ubuntu:24.04"
+    - "litmusimage/ubuntu:26.04"
     - "litmusimage/oraclelinux:7"
     - "litmusimage/oraclelinux:8"
     - "litmusimage/oraclelinux:9"
